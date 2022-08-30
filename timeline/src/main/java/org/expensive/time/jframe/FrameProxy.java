@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class FrameProxy {
-    private GlobalFrame globalFrame = null;
+    private JFrame globalFrame = null;
     public FrameProxy() throws IOException {
         if(globalFrame == null ){
             globalFrame = new GlobalFrame();
@@ -20,7 +20,7 @@ public class FrameProxy {
         frameHide();
     }
 
-    public GlobalFrame getGlobalFrame() {
+    public JFrame getGlobalFrame() {
         return globalFrame;
     }
 
@@ -30,6 +30,8 @@ public class FrameProxy {
 
     public void frameShow(){
         globalFrame.setVisible(true);
+        //最大化
+        globalFrame.toFront();//
     }
 
     public void frameHide(){

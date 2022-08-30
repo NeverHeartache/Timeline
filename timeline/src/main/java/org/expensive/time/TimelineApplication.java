@@ -7,7 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimelineApplication {
-    private final Long delay = 1000L * 1L;//
+    private final Long delay = 1000L * 60 * 10L;//
     private final Long period = 1000L * 60 * 50L;//x minutes 之后继续执行
     private FrameProxy frameProxy;
     private Timer timer = null;
@@ -29,7 +29,6 @@ public class TimelineApplication {
                 frameProxy.frameShow();
                 java.awt.Toolkit.getDefaultToolkit().beep();
                 try {
-
                     Thread.sleep(1000L * 5L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

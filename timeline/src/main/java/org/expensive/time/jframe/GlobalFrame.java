@@ -4,17 +4,12 @@ package org.expensive.time.jframe;
 
 import org.expensive.time.toolkit.DateUtils;
 
-import javax.naming.Context;
 import javax.swing.*;
 import java.awt.*;
-import java.nio.file.*;
-import java.nio.file.spi.FileSystemProvider;
-import java.util.List;
 import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.List;
 import java.util.Timer;
-import java.util.stream.Stream;
+import java.util.*;
 
 public class GlobalFrame extends JFrame {
     private static final int DEFAULT_WIDTH = 600;
