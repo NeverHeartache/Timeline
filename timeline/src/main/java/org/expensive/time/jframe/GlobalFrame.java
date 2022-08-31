@@ -2,6 +2,11 @@ package org.expensive.time.jframe;
 
 //import toolkit.DateUtils;
 
+import org.expensive.time.layout.center.CenterLayoutComponent;
+import org.expensive.time.layout.east.EastLayoutComponent;
+import org.expensive.time.layout.north.NorthLayoutComponent;
+import org.expensive.time.layout.south.SouthLayoutComponent;
+import org.expensive.time.layout.west.WestLayoutComponent;
 import org.expensive.time.toolkit.DateUtils;
 
 import javax.swing.*;
@@ -16,34 +21,39 @@ public class GlobalFrame extends JFrame {
     private static final int DEFAULT_HEIGHT = 400;
     private static final int X_Position = 781;
     private static final int Y_Position = 292;
-    private Date bootTime;
-    private JPanel  timePanel;
-    private JLabel timeLabel, displayArea, titleLabel;
-    private String time;
-    private ImageIcon image = null;
-    public List<File> picList = new ArrayList<>();
-    private int fileIndex = 0;
+    private JMenuBar menuBar;
+    private SouthLayoutComponent southLayout;
+    private NorthLayoutComponent northLayout;
+    private WestLayoutComponent westLayout;
+    private EastLayoutComponent eastLayout;
+    private CenterLayoutComponent centerLayout;
 
     public GlobalFrame(){
-        bootTime = new Date();
-        //标题
-        titleLabel = new JLabel("打开本程序时间为："+ DateUtils.format(bootTime)+System.lineSeparator());
-        //动态时间
-        timePanel = new JPanel();
-        timeLabel = new JLabel("Current time is :");
-        displayArea = new JLabel(""+System.lineSeparator());//trailing
-        //新建对象的时候就开始跑线程
-        runTimePanel(); //  添加一个动态的时间
-        timePanel.add(titleLabel);
-        timePanel.add(timeLabel);
-        timePanel.add(displayArea);
-        add(timePanel);
+        //  菜单内容相关
+        addJMenuBar();
+        //  应用内容相关
+        setApplicationProperties();
+        //  应用内容布局相关
+        initBorderLayout();
+    }
 
-        image = new ImageIcon(getClass().getClassLoader().getResource("static/img/180822080212.png"));
-        JLabel imageLabel = new JLabel();
-        imageLabel.setIcon(image);
-        timePanel.add(imageLabel);
-        //
+    /**
+     * border layout 布局相关；
+     */
+    private void initBorderLayout() {
+        southLayout = new SouthLayoutComponent();
+        northLayout = new NorthLayoutComponent();
+        westLayout = new WestLayoutComponent();
+        eastLayout = new EastLayoutComponent();
+        centerLayout = new CenterLayoutComponent();
+        add(southLayout, BorderLayout.SOUTH);
+        add(northLayout, BorderLayout.NORTH);
+        add(westLayout, BorderLayout.WEST);
+        add(eastLayout, BorderLayout.EAST);
+        add(centerLayout, BorderLayout.CENTER);
+    }
+
+    private void setApplicationProperties() {
         setTitle("Timeline!Time to have a rest!");
         setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         setLocation(X_Position, Y_Position);
@@ -51,16 +61,26 @@ public class GlobalFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
     }
-    protected class JLabelTimerTask extends TimerTask {
-        @Override
-        public void run() {
-            time = DateUtils.format(Calendar.getInstance().getTime());
-            displayArea.setText(time);
-        }
+
+    private void addJMenuBar() {
+        menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+
+        // "File" menu
+        JMenu fileMenu = new JMenu("File");
+        menuBar.add(fileMenu);
+        JMenuItem existMenuItem = new JMenuItem("Exist");
+        existMenuItem.addActionListener(clickEvent -> {
+            System.exit(0);
+        });
+        fileMenu.add(existMenuItem);
+        //  "Edit" menu
+        JMenu editMenu = new JMenu("Edit");
+        menuBar.add(editMenu);
+
     }
-    public void runTimePanel(){
-        Timer tmr = new Timer();
-        tmr.scheduleAtFixedRate(new JLabelTimerTask(), new Date(), 1000L);
-    }
+
+
+
 
 }

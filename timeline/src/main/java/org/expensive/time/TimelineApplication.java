@@ -7,11 +7,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimelineApplication {
-    private final Long delay = 1000L * 60 * 10L;//
-    private final Long period = 1000L * 60 * 50L;//x minutes 之后继续执行
-    private FrameProxy frameProxy;
-    private Timer timer = null;
-    private TimerTask timerTask = null;
+    private final FrameProxy frameProxy;
+    private final Timer timer;
+
     public TimelineApplication() throws IOException {
         frameProxy = new FrameProxy();
         timer = new Timer("Timeline");
@@ -23,7 +21,7 @@ public class TimelineApplication {
     }
 
     public void loopShow(){
-        timerTask = new TimerTask() {
+        TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 frameProxy.frameShow();
@@ -36,6 +34,10 @@ public class TimelineApplication {
                 frameProxy.frameHide();
             }
         };
+        //
+        Long delay = 1000L * 60 * 10L;
+        //x minutes 之后继续执行
+        Long period = 1000L * 60 * 50L;
         timer.scheduleAtFixedRate(timerTask, delay, period);
     }
 }

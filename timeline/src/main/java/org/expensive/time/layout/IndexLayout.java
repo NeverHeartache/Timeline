@@ -1,9 +1,11 @@
 package org.expensive.time.layout;
 
-import org.expensive.time.layout.top.TopTimeLayout;
+import org.expensive.time.layout.south.SouthLayoutComponent;
 
-public class IndexLayout {
+import javax.swing.*;
 
-    private TopTimeLayout topTimeLayout;
+public class IndexLayout extends JComponent {
+
+    private SouthLayoutComponent southLayoutComponent;
 
 }
