@@ -10,10 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GlobalFrame extends JFrame {
-//    private static final int DEFAULT_WIDTH = 600;
-//    private static final int DEFAULT_HEIGHT = 400;
-//    private static final int X_Position = 781;
-//    private static final int Y_Position = 292;
     private JMenuBar menuBar;
     private SouthLayoutComponent southLayout;
     private NorthLayoutComponent northLayout;
@@ -50,8 +46,6 @@ public class GlobalFrame extends JFrame {
 
     private void setApplicationProperties() {
         setTitle("Timeline!Time to have a rest!");
-//        setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-//        setLocation(X_Position, Y_Position);
         setExtendedState(JFrame.MAXIMIZED_BOTH);// JFrame最大化
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);

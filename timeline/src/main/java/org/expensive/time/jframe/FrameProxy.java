@@ -124,20 +124,15 @@ public class FrameProxy {
                 frame.frameShow();
                 java.awt.Toolkit.getDefaultToolkit().beep();
                 try {
-                    Thread.sleep(1000L * 5L);
+                    Thread.sleep(1000L * 10L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 frame.frameHide();
-                try {
-                    Thread.sleep(1000L * 60 * 10L - 5000l);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         };
         //
-        Long delay = 0l;
+        Long delay = 1000L * 60 * 10L;
         //x minutes 之后继续执行
         Long period = 1000L * 60 * 50L;
         // delay 展示5秒，间隔50分钟

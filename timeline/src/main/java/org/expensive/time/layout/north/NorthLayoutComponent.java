@@ -4,10 +4,8 @@ import org.expensive.time.toolkit.DateUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class NorthLayoutComponent extends JPanel {
     private JLabel timeLabel, displayArea;
@@ -15,7 +13,9 @@ public class NorthLayoutComponent extends JPanel {
 
     public NorthLayoutComponent() {
         //动态时间
-        timeLabel = new JLabel("当前时间为 :");
+        Calendar calendar = Calendar.getInstance();
+        String date = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT_FORMAT, new Locale("ZH"));
+        timeLabel = new JLabel(date + ":");
         timeLabel.setHorizontalAlignment(JLabel.LEFT);// 水平对其方式：居中
         timeLabel.setVerticalAlignment(JLabel.TOP);//垂直对其方式：顶部
         Font font1 = new Font("SansSerif", Font.CENTER_BASELINE, 60);
