@@ -118,24 +118,39 @@ public class FrameProxy {
     }
 
     public void initLoopShow(FrameProxy frame) {
+        //
+        Long delay = 1000L * 5L;
+        //
+        Long sleep = 1000 * 60 * 10l;
+        //x minutes 之后继续执行
+        Long period = 1000L * 60 * 60L;
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 frame.frameShow();
                 java.awt.Toolkit.getDefaultToolkit().beep();
                 try {
-                    Thread.sleep(1000L * 10L);
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                frame.frameHide();
+                try {
+                    Thread.sleep(sleep);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                frame.frameShow();
+                try {
+                    Thread.sleep(delay);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 frame.frameHide();
             }
         };
-        //
-        Long delay = 1000L * 60 * 10L;
-        //x minutes 之后继续执行
-        Long period = 1000L * 60 * 50L;
+
         // delay 展示5秒，间隔50分钟
-        timer.scheduleAtFixedRate(timerTask, delay, period);
+        timer.scheduleAtFixedRate(timerTask, 0l, period);
     }
 }

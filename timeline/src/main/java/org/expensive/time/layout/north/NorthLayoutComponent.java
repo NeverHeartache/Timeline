@@ -3,7 +3,6 @@ package org.expensive.time.layout.north;
 import org.expensive.time.toolkit.DateUtils;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.util.*;
 import java.util.Timer;
