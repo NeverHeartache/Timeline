@@ -68,9 +68,13 @@ public class GlobalFrame extends JFrame {
         editMenu.setFont(menuFont);
         editMenu.addSeparator();
         menuBar.add(editMenu);
-
-
     }
 
+    public GlobalPropertiesUtil getGlobalPropertiesUtil() {
+        return globalPropertiesUtil;
+    }
 
+    public void setGlobalPropertiesUtil(GlobalPropertiesUtil globalPropertiesUtil) {
+        this.globalPropertiesUtil = globalPropertiesUtil;
+    }
 }

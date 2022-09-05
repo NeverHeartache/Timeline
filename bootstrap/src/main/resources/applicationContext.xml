@@ -5,15 +5,15 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="frameProxy" class="org.expensive.layout.jframe.FrameProxy">
-        <property name="globalFrame" ref="globalFrame" />
-        <property name="timer" ref="frameTimer" />
+        <property name="globalFrame" ref="globalFrame"/>
+        <property name="timer" ref="frameTimer"/>
     </bean>
-    <bean id="frameTimer" class="java.util.Timer" />
+    <bean id="frameTimer" class="java.util.Timer"/>
     <bean id="globalFrame" class="org.expensive.layout.jframe.GlobalFrame">
-        <property name="globalProperties" ref="globalProperties" />
+        <property name="globalPropertiesUtil" ref="globalProperties"/>
     </bean>
     <bean id="globalProperties" class="org.expensive.common.utils.GlobalPropertiesUtil">
-        <property name="properties" ref="java.util.Properties" />
+        <property name="properties" ref="properties"/>
     </bean>
-
+    <bean id="properties" class="java.util.Properties"></bean>
 </beans>

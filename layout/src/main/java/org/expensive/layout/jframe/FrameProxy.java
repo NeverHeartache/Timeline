@@ -9,14 +9,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class FrameProxy {
-    private JFrame globalFrame = null;
+    private GlobalFrame globalFrame = null;
     private Timer timer = new Timer("Timeline");
 
     public FrameProxy() {
         initTray();
     }
 
-    public JFrame getGlobalFrame() {
+    public GlobalFrame getGlobalFrame() {
         return globalFrame;
     }
 
@@ -148,4 +148,6 @@ public class FrameProxy {
         // delay 展示5秒，间隔50分钟
         timer.scheduleAtFixedRate(timerTask, 0L, period);
     }
+
+
 }
