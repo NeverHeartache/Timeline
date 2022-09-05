@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="frameProxy" class="org.expensive.layout.jframe.FrameProxy">
+        <property name="globalFrame" ref="globalFrame" />
+        <property name="timer" ref="frameTimer" />
+    </bean>
+    <bean id="frameTimer" class="java.util.Timer" />
+    <bean id="globalFrame" class="org.expensive.layout.jframe.GlobalFrame">
+        <property name="globalProperties" ref="globalProperties" />
+    </bean>
+    <bean id="globalProperties" class="org.expensive.common.utils.GlobalPropertiesUtil">
+        <property name="properties" ref="java.util.Properties" />
+    </bean>
+
+</beans>
