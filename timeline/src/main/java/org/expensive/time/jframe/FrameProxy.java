@@ -13,12 +13,9 @@ import java.util.TimerTask;
 
 public class FrameProxy {
     private JFrame globalFrame = null;
-    private final Timer timer = new Timer("Timeline");
+    private Timer timer = new Timer("Timeline");
 
-    public FrameProxy() throws IOException {
-        if (globalFrame == null) {
-            globalFrame = new GlobalFrame();
-        }
+    public FrameProxy() {
         initTray();
     }
 
@@ -34,9 +31,17 @@ public class FrameProxy {
         return globalFrame.isShowing();
     }
 
-    private void initTray() throws IOException {
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
+
+    private void initTray() {
         if (SystemTray.isSupported()) {
-            Font trayFont = new Font("Helvetica", Font.CENTER_BASELINE, 16);
+            Font trayFont = new Font("Helvetica", Font.BOLD, 16);
             SystemTray systemTray = SystemTray.getSystemTray();//创建托盘
             PopupMenu popupMenu = new PopupMenu();
 
@@ -49,20 +54,13 @@ public class FrameProxy {
                     globalFrame.setVisible(true);
                 }
             });
-            exitItem.addActionListener(e -> {
-                System.exit(0);
-            });
+            exitItem.addActionListener(e -> System.exit(0));
             popupMenu.add(openItem);
             popupMenu.add(exitItem);
             TrayIcon trayIcon = new TrayIcon(createImage("/ico.jpg", ""), "Timeline！Let's have a rest!", popupMenu);
             // 托盘图标自适应尺寸
             trayIcon.setImageAutoSize(true);
-            trayIcon.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("托盘图标被右键点击");
-                }
-            });
+            trayIcon.addActionListener(e -> System.out.println("托盘图标被右键点击"));
             trayIcon.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -121,7 +119,7 @@ public class FrameProxy {
         //
         Long delay = 1000L * 5L;
         //
-        Long sleep = 1000 * 60 * 10l;
+        Long sleep = 1000 * 60 * 10L;
         //x minutes 之后继续执行
         Long period = 1000L * 60 * 60L;
         TimerTask timerTask = new TimerTask() {
@@ -151,6 +149,6 @@ public class FrameProxy {
         };
 
         // delay 展示5秒，间隔50分钟
-        timer.scheduleAtFixedRate(timerTask, 0l, period);
+        timer.scheduleAtFixedRate(timerTask, 0L, period);
     }
 }
