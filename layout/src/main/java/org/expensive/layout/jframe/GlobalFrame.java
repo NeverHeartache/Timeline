@@ -63,11 +63,23 @@ public class GlobalFrame extends JFrame {
         existMenuItem.setFont(menuFont);
         existMenuItem.addActionListener(clickEvent -> System.exit(0));
         fileMenu.add(existMenuItem);
+
         //  "Edit" menu
         JMenu editMenu = new JMenu("Edit");
         editMenu.setFont(menuFont);
         editMenu.addSeparator();
+        //
         menuBar.add(editMenu);
+
+        //  "Tool" menu
+        JMenu toolMenu = new JMenu("Tool");
+        toolMenu.setFont(menuFont);
+        toolMenu.addSeparator();
+        //open socket
+        JMenuItem caculator = new JMenuItem("open socket panel");
+        caculator.addActionListener(click -> System.out.println("待使用计算器..."));
+        toolMenu.add(caculator);
+        menuBar.add(toolMenu);
     }
 
     public GlobalPropertiesUtil getGlobalPropertiesUtil() {
