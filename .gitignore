@@ -11,9 +11,5 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 /.idea/
 /out/
-/*/*.iml
 *.iml
-/mathteach/mathteach.iml
-/timeline/timeline.iml
-/Timeline.iml
-/timeline/src/main/resources/META-INF/MANIFEST.MF
+**/MANIFEST.MF
