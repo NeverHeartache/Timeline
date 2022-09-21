@@ -1,5 +1,8 @@
 package org.expensive.layout.jframe;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -8,8 +11,11 @@ import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
 
+@Component
 public class FrameProxy {
+    @Autowired
     private GlobalFrame globalFrame = null;
+
     private Timer timer = new Timer("Timeline");
 
     public FrameProxy() {

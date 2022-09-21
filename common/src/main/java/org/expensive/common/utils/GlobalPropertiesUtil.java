@@ -1,9 +1,12 @@
 package org.expensive.common.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 
+@Component
 public class GlobalPropertiesUtil {
 
     private Properties properties;

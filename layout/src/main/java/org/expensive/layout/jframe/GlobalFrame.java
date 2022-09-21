@@ -6,12 +6,15 @@ import org.expensive.layout.layout.east.EastLayoutComponent;
 import org.expensive.layout.layout.north.NorthLayoutComponent;
 import org.expensive.layout.layout.south.SouthLayoutComponent;
 import org.expensive.layout.layout.west.WestLayoutComponent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
 
+@Component
 public class GlobalFrame extends JFrame {
-
+    @Autowired
     private GlobalPropertiesUtil globalPropertiesUtil;
 
     public GlobalFrame() {

@@ -19,8 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>org.expensive</groupId>
-            <artifactId>common</artifactId>
-            <scope>compile</scope>
+            <artifactId>control</artifactId>
         </dependency>
     </dependencies>
 
