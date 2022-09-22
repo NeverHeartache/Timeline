@@ -122,9 +122,9 @@ public class FrameProxy {
         //
         Long delay = 1000L * 5L;
         //
-        Long sleep = 1000 * 60 * 10L;
+        Long sleep = 1000 * 60 * 10L - delay;
         //x minutes 之后继续执行
-        Long period = 1000L * 60 * 60L;
+        Long period = 1000L * 60 * 50L;
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
