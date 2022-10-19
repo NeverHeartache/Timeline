@@ -1,4 +1,4 @@
 package org.expensive.service;
 
-public class TestService {
+public interface TestService {
 }
