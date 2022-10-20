@@ -1,5 +1,6 @@
 package org.expensive.service;
 
+import java.io.IOException;
 import java.util.stream.Stream;
 
 public interface ImageFinderService {
@@ -9,5 +10,5 @@ public interface ImageFinderService {
      * @param pagePath 目标图片所在的页面路径（）
      * @return 返回页面的字符数据流
      */
-    Stream<String> getImagesFromWebsite(String pagePath);
+    String getImagesPageFromWebsite(String pagePath) throws IOException;
 }
