@@ -4,10 +4,7 @@ import org.expensive.service.ImageFinderService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -55,6 +52,24 @@ public class ImageFinderServiceImpl implements ImageFinderService {
             if (fileOutputStream != null)
                 fileOutputStream.close();
             return filePath;
+        }
+    }
+
+    /**
+     * 从本地html文件过滤img标签并将图片下载到本地
+     * @param path html文件路径
+     * @throws FileNotFoundException 异常
+     */
+    @Override
+    public void filterImagesFromFile(String path) throws FileNotFoundException {
+        File file = new File(path);
+        FileInputStream fileInputStream = new FileInputStream(file);
+        Scanner sc = new Scanner(fileInputStream);
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            if (line.contains("<img")) {
+
+            }
         }
     }
 }
