@@ -1,8 +1,10 @@
 package org.expensive.service.impl;
 
+import org.expensive.common.utils.HtmlUtil;
 import org.expensive.service.ImageFinderService;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.xml.DomUtils;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -11,7 +13,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @Service
 public class ImageFinderServiceImpl implements ImageFinderService {
@@ -26,22 +27,22 @@ public class ImageFinderServiceImpl implements ImageFinderService {
      */
     @Override
     public String getImagesPageFromWebsite(String pagePath) throws IOException {
-        pagePath = "https://erogazo.info/archives/9164/10";
+//        pagePath = "https://erogazo.info/archives/9164/10";
+        pagePath = "https://www.vcg.com/creative-image/gaoqingbizhi/";
         InputStream inputStream = null;
         FileOutputStream fileOutputStream = null;
         String filePath = outFilePathPrefix + UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.ROOT) + ".html";
+        System.out.println(filePath);
         try {
             URL url = new URL(pagePath);
             url.openConnection();
             inputStream = url.openStream();
-            Scanner sc = new Scanner(inputStream);
             fileOutputStream = new FileOutputStream(filePath);
-            StringBuilder sber = new StringBuilder();
-            while (sc.hasNextLine()) {
-                sber.append(sc.nextLine());
+            int ch;
+            while ((ch = inputStream.read()) != -1) {
+                fileOutputStream.write(ch);
             }
-            byte[] pageBytes = sber.toString().getBytes(StandardCharsets.UTF_8);
-            fileOutputStream.write(pageBytes);
+            return filePath;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -51,8 +52,8 @@ public class ImageFinderServiceImpl implements ImageFinderService {
                 inputStream.close();
             if (fileOutputStream != null)
                 fileOutputStream.close();
-            return filePath;
         }
+        return filePath;
     }
 
     /**
@@ -61,15 +62,38 @@ public class ImageFinderServiceImpl implements ImageFinderService {
      * @throws FileNotFoundException 异常
      */
     @Override
-    public void filterImagesFromFile(String path) throws FileNotFoundException {
+    public String[] filterImagesFromFile(String path) throws FileNotFoundException {
         File file = new File(path);
         FileInputStream fileInputStream = new FileInputStream(file);
         Scanner sc = new Scanner(fileInputStream);
+        StringBuilder sber = new StringBuilder();
         while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            if (line.contains("<img")) {
-
-            }
+            sber.append(sc.nextLine());
         }
+        String htmlContent = sber.toString();
+        String[] imgarray = HtmlUtil.getImgs(htmlContent);
+        for (String s : imgarray) {
+            System.out.println(s);
+        }
+        return imgarray;
+    }
+
+    /**
+     * 将远程资源下载道本地指定目录
+     * @param url 远程文件url
+     * @param localePathPrefix 本地文件url
+     * @throws IOException 异常
+     */
+    private void downloadRemoteImgFile(String url, String localePathPrefix) throws IOException {
+        URL destiny =  new URL(url);
+        InputStream in = destiny.openStream();
+        FileOutputStream fileOutputStream = new FileOutputStream(localePathPrefix + "download.jpg");
+        Scanner sc = new Scanner(in);
+        int c;
+        while ((c = in.read()) != -1){
+            fileOutputStream.write(c);
+        }
+        fileOutputStream.close();
+        in.close();
     }
 }

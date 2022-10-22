@@ -1,5 +1,6 @@
 package org.expensive.time;
 
+import jdk.nashorn.internal.runtime.regexp.RegExp;
 import org.expensive.service.impl.ImageFinderServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,15 +8,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.CollectionUtils;
+import org.w3c.dom.Element;
+import org.w3c.dom.html.HTMLElement;
+import sun.plugin.dom.html.HTMLBRElement;
 
 import javax.annotation.Resource;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
@@ -38,6 +46,34 @@ public class PageFileTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void getFilterImages() throws FileNotFoundException {
+        String path = "F:\\TimelineResource\\A4B1052D16E14D5EAF8F78952F234E70.html";
+        String[] arr = service.filterImagesFromFile(path);
+        Pattern srcPattern = Pattern.compile("\"([^\"]*)\"");
+        Matcher matcher = null;
+        for (String s:
+             arr) {
+            matcher = srcPattern.matcher(s);
+        }
+        System.out.println(matcher.group(1));
+    }
+
+    @Test
+    public void downloadRemoteImage() throws IOException {
+        String url = "https://tenfei04.cfp.cn/creative/vcg/400/version23/VCG217e72c7346.jpg";
+        URL destiny =  new URL(url);
+        InputStream in = destiny.openStream();
+        FileOutputStream fileOutputStream = new FileOutputStream("download.jpg");
+        Scanner sc = new Scanner(in);
+        int c;
+        while ((c = in.read()) != -1){
+            fileOutputStream.write(c);
+        }
+        fileOutputStream.close();
+        in.close();
     }
 
     @Test

@@ -17,5 +17,5 @@ public interface ImageFinderService {
      * 从本地html文件过滤img标签并将图片下载到本地
      * @param filePath html文件
      */
-    void filterImagesFromFile(String filePath) throws FileNotFoundException;
+    String[] filterImagesFromFile(String filePath) throws FileNotFoundException;
 }
