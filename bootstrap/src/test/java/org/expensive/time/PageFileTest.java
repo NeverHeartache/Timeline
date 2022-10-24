@@ -50,7 +50,7 @@ public class PageFileTest {
 
     @Test
     public void getFilterImages() throws FileNotFoundException {
-        String path = "F:\\TimelineResource\\A4B1052D16E14D5EAF8F78952F234E70.html";
+        String path = "F:\\TimelineResource\\96A2B8A65E0E4B488051547AABD3EF05.html";
         String[] arr = service.filterImagesFromFile(path);
         Pattern srcPattern = Pattern.compile("\"([^\"]*)\"");
         Matcher matcher = null;

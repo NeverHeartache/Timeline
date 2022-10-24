@@ -21,6 +21,11 @@ public class HtmlUtil {
     private static final String REG_IMG = "(<img\\b.*?(?:\\>|\\/>))";
 
     /**
+     * src的正则匹配表达式
+     */
+    private static final String REG_SRC = "/src=[\\\"|'](.*?)[\\\"|']/gi";
+
+    /**
      * @param htmlStr
      * @return 删除Html标签
      */
@@ -58,6 +63,20 @@ public class HtmlUtil {
             images = str.split(",");
         }
         return images;
+    }
+
+    /**
+     * 过滤img标签中的src属性值
+     * @param imgs img标签数组
+     * @return src值的数组
+     */
+    public static String[] getSrcOfImg(String[] imgs) {
+        Pattern s_prop = Pattern.compile(REG_SRC, Pattern.CASE_INSENSITIVE);
+        String[] srcArray = null;
+        for (String s : imgs) {
+
+        }
+        return null;
     }
 
 }
