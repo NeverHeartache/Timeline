@@ -19,10 +19,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,13 +48,19 @@ public class PageFileTest {
 
     @Test
     public void getFilterImages() throws FileNotFoundException {
-        String path = "F:\\TimelineResource\\A4B1052D16E14D5EAF8F78952F234E70.html";
+        String path = "F:\\TimelineResource\\96A2B8A65E0E4B488051547AABD3EF05.html";
         String[] arr = service.filterImagesFromFile(path);
-        Pattern srcPattern = Pattern.compile("/<img[^>]+src=['\"]([^'\"]+)['\"]+/g");
+        Pattern srcPattern = Pattern.compile("\"[^\"]*\"");
         Matcher matcher = null;
         try {
             List<String> strings = HtmlUtil.getSrcOfImg(arr);
-            strings.stream().forEach(e -> {
+            List<String> srcValue = new ArrayList<>();
+            for (String s : strings) {
+                matcher = srcPattern.matcher(s);
+                if (matcher.find())
+                    srcValue.add(matcher.group());
+            }
+            srcValue.stream().forEach(e -> {
                 System.out.println(e);
             });
         } catch (Exception e) {

@@ -3,7 +3,9 @@ package org.expensive.common.utils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -82,7 +84,7 @@ public class HtmlUtil {
         //  pattern 声明正则表达式
         Pattern sPropPattern = Pattern.compile(REG_SRC, Pattern.CASE_INSENSITIVE);
         //  matcher
-        Matcher sPropMatcher = null;
+        Matcher sPropMatcher;
         List<String> lists = new ArrayList<>();
         for (String s : imgLables) {
             sPropMatcher = sPropPattern.matcher(s);
@@ -91,8 +93,32 @@ public class HtmlUtil {
                 lists.add(str_src);
             }
         }
-//        System.out.println(sPropMatcher.group());
         return lists;
+    }
+
+    public static List<String> getValueOfSrc(String filePath) {
+        //  文件非空判断
+        File file = new File(filePath);
+        if (!file.exists() || !file.isFile()) return null;
+        //  从html文件中匹配所有的img标签内容
+        String[] imageLabelArray = getImgs(filePath);
+        //  正则表达式，用于匹配双引号的内容
+        Pattern srcValuePattern = Pattern.compile("\"[^\"]*\"");
+        Matcher srcValMatcher;
+        List<String> srcValue = new ArrayList<>();
+        try {
+            //  从上述img标签中过滤出所有的src属性以及对应的值，形式为：src="xxx"
+            List<String> imgLables = HtmlUtil.getSrcOfImg(imageLabelArray);
+            for (String img : imgLables) {
+                srcValMatcher = srcValuePattern.matcher(img);
+                if (srcValMatcher.find())
+                    srcValue.add(srcValMatcher.group());
+            }
+            srcValue.forEach(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return srcValue;
     }
 
 }

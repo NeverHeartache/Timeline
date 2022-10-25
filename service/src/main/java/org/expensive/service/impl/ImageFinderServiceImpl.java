@@ -23,7 +23,7 @@ public class ImageFinderServiceImpl implements ImageFinderService {
      * 从网站下载带有目标图片的网页，并写入本地；
      * @param pagePath 目标图片所在的页面路径（）
      * @return 本地网页地址
-     * @throws IOException
+     * @throws IOException IO异常
      */
     @Override
     public String getImagesPageFromWebsite(String pagePath) throws IOException {
@@ -71,11 +71,7 @@ public class ImageFinderServiceImpl implements ImageFinderService {
             sber.append(sc.nextLine());
         }
         String htmlContent = sber.toString();
-        String[] imgarray = HtmlUtil.getImgs(htmlContent);
-//        for (String s : imgarray) {
-//            System.out.println(s);
-//        }
-        return imgarray;
+        return HtmlUtil.getImgs(htmlContent);
     }
 
     /**
