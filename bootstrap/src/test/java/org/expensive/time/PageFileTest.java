@@ -1,6 +1,7 @@
 package org.expensive.time;
 
 import jdk.nashorn.internal.runtime.regexp.RegExp;
+import org.expensive.common.utils.HtmlUtil;
 import org.expensive.service.impl.ImageFinderServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,15 +51,18 @@ public class PageFileTest {
 
     @Test
     public void getFilterImages() throws FileNotFoundException {
-        String path = "F:\\TimelineResource\\96A2B8A65E0E4B488051547AABD3EF05.html";
+        String path = "F:\\TimelineResource\\A4B1052D16E14D5EAF8F78952F234E70.html";
         String[] arr = service.filterImagesFromFile(path);
-        Pattern srcPattern = Pattern.compile("\"([^\"]*)\"");
+        Pattern srcPattern = Pattern.compile("/<img[^>]+src=['\"]([^'\"]+)['\"]+/g");
         Matcher matcher = null;
-        for (String s:
-             arr) {
-            matcher = srcPattern.matcher(s);
+        try {
+            List<String> strings = HtmlUtil.getSrcOfImg(arr);
+            strings.stream().forEach(e -> {
+                System.out.println(e);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println(matcher.group(1));
     }
 
     @Test
@@ -87,7 +91,6 @@ public class PageFileTest {
             URL url = new URL(pagePath);
             url.openConnection();
             inputStream = url.openStream();
-//            File file = new File(inputStream);
             Scanner sc = new Scanner(inputStream);
             fileOutputStream = new FileOutputStream(outFilePathPrefix + "Out.html");
             StringBuilder sber = new StringBuilder();

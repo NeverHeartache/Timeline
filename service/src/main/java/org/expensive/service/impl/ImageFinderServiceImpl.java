@@ -72,9 +72,9 @@ public class ImageFinderServiceImpl implements ImageFinderService {
         }
         String htmlContent = sber.toString();
         String[] imgarray = HtmlUtil.getImgs(htmlContent);
-        for (String s : imgarray) {
-            System.out.println(s);
-        }
+//        for (String s : imgarray) {
+//            System.out.println(s);
+//        }
         return imgarray;
     }
 
