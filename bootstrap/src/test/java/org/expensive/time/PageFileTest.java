@@ -1,6 +1,5 @@
 package org.expensive.time;
 
-import jdk.nashorn.internal.runtime.regexp.RegExp;
 import org.expensive.common.utils.HtmlUtil;
 import org.expensive.service.impl.ImageFinderServiceImpl;
 import org.junit.Test;
@@ -9,17 +8,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.CollectionUtils;
-import org.w3c.dom.Element;
-import org.w3c.dom.html.HTMLElement;
-import sun.plugin.dom.html.HTMLBRElement;
 
 import javax.annotation.Resource;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,7 +51,7 @@ public class PageFileTest {
         String path = "F:\\TimelineResource\\96A2B8A65E0E4B488051547AABD3EF05.html";
         String[] arr = service.filterImagesFromFile(path);
         Pattern srcPattern = Pattern.compile("\"[^\"]*\"");
-        Matcher matcher = null;
+        Matcher matcher;
         try {
             List<String> strings = HtmlUtil.getSrcOfImg(arr);
             List<String> srcValue = new ArrayList<>();
@@ -60,9 +60,7 @@ public class PageFileTest {
                 if (matcher.find())
                     srcValue.add(matcher.group());
             }
-            srcValue.stream().forEach(e -> {
-                System.out.println(e);
-            });
+            srcValue.forEach(System.out::println);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,8 +100,6 @@ public class PageFileTest {
             }
             byte[] pageBytes = sber.toString().getBytes(StandardCharsets.UTF_8);
             fileOutputStream.write(pageBytes);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
