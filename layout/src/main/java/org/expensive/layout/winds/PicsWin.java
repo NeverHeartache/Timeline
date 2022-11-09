@@ -13,5 +13,21 @@ public class PicsWin extends JDialog {
 
     public PicsWin(Frame owner) {
         super(owner);
+        JTextField pageAddressInput = new JTextField("图片页面", 20);
+        add(pageAddressInput);
+        PicsPanel picsPanel = new PicsPanel();
+        picsPanel.setLayout(new GridLayout(9,9));
+        add(picsPanel);
+    }
+
+    class PicsPanel extends JPanel {
+        @Override
+        public void setLayout(LayoutManager mgr) {
+            super.setLayout(mgr);
+        }
+
+        public void fillPictures() {
+
+        }
     }
 }
