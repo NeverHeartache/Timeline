@@ -6,6 +6,7 @@ import org.expensive.layout.layout.east.EastLayoutComponent;
 import org.expensive.layout.layout.north.NorthLayoutComponent;
 import org.expensive.layout.layout.south.SouthLayoutComponent;
 import org.expensive.layout.layout.west.WestLayoutComponent;
+import org.expensive.layout.winds.PicsWin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -82,6 +83,13 @@ public class GlobalFrame extends JFrame {
         JMenuItem caculator = new JMenuItem("open socket panel");
         caculator.addActionListener(click -> System.out.println("待使用计算器..."));
         toolMenu.add(caculator);
+        //  open images menu item
+        JMenuItem picWinMenuItem = new JMenuItem("open img dialog");
+        picWinMenuItem.addActionListener(click -> {
+            //  打开图片弹窗
+            PicsWin picsWin = new PicsWin(this);
+        });
+        toolMenu.add(picWinMenuItem);
         menuBar.add(toolMenu);
     }
 
