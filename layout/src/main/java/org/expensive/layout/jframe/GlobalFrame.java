@@ -88,6 +88,7 @@ public class GlobalFrame extends JFrame {
         picWinMenuItem.addActionListener(click -> {
             //  打开图片弹窗
             PicsWin picsWin = new PicsWin(this);
+            picsWin.setVisible(true);
         });
         toolMenu.add(picWinMenuItem);
         menuBar.add(toolMenu);

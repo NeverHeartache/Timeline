@@ -18,4 +18,12 @@ public interface ImageFinderService {
      * @param filePath html文件
      */
     String[] filterImagesFromFile(String filePath) throws FileNotFoundException;
+
+    /**
+     * 将远程资源下载道本地指定目录
+     * @param url 远程文件url
+     * @param localePathPrefix 本地文件url
+     * @throws IOException 异常
+     */
+    void downloadRemoteImgFile(String url, String localePathPrefix, String fileName) throws IOException;
 }

@@ -4,6 +4,7 @@ import org.expensive.common.utils.HtmlUtil;
 import org.expensive.service.ImageFinderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.util.xml.DomUtils;
 
 import java.io.*;
@@ -27,8 +28,6 @@ public class ImageFinderServiceImpl implements ImageFinderService {
      */
     @Override
     public String getImagesPageFromWebsite(String pagePath) throws IOException {
-//        pagePath = "https://erogazo.info/archives/9164/10";
-        pagePath = "https://www.vcg.com/creative-image/gaoqingbizhi/";
         InputStream inputStream = null;
         FileOutputStream fileOutputStream = null;
         String filePath = outFilePathPrefix + UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.ROOT) + ".html";
@@ -80,10 +79,12 @@ public class ImageFinderServiceImpl implements ImageFinderService {
      * @param localePathPrefix 本地文件url
      * @throws IOException 异常
      */
-    private void downloadRemoteImgFile(String url, String localePathPrefix) throws IOException {
+    public void downloadRemoteImgFile(String url, String localePathPrefix, String fileName) throws IOException {
+        if (StringUtils.isEmpty(localePathPrefix)) localePathPrefix = outFilePathPrefix;
         URL destiny =  new URL(url);
         InputStream in = destiny.openStream();
-        FileOutputStream fileOutputStream = new FileOutputStream(localePathPrefix + "download.jpg");
+        if (StringUtils.isEmpty(fileName)) fileName = url.substring(url.lastIndexOf("/"));
+        FileOutputStream fileOutputStream = new FileOutputStream(localePathPrefix + fileName);
         Scanner sc = new Scanner(in);
         int c;
         while ((c = in.read()) != -1){

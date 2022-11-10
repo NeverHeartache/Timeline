@@ -14,7 +14,7 @@ import java.util.TimerTask;
 @Component
 public class FrameProxy {
     @Autowired
-    private GlobalFrame globalFrame = null;
+    private GlobalFrame globalFrame;
 
     private Timer timer = new Timer("Timeline");
 
