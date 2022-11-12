@@ -2,6 +2,7 @@ package org.expensive.service;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Stream;
 
 public interface ImageFinderService {
@@ -26,4 +27,11 @@ public interface ImageFinderService {
      * @throws IOException 异常
      */
     void downloadRemoteImgFile(String url, String localePathPrefix, String fileName) throws IOException;
+
+    /**
+     * 从image标签中过滤src的值
+     * @param imgLabel 标签字符串
+     * @return src的字符串值
+     */
+    List<String> filterSrcValueFromImgLabel(String[] imgLabel);
 }

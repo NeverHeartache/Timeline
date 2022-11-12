@@ -6,6 +6,7 @@ import org.expensive.layout.layout.east.EastLayoutComponent;
 import org.expensive.layout.layout.north.NorthLayoutComponent;
 import org.expensive.layout.layout.south.SouthLayoutComponent;
 import org.expensive.layout.layout.west.WestLayoutComponent;
+import org.expensive.layout.winds.PicsPanel;
 import org.expensive.layout.winds.PicsWin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,10 @@ import java.awt.*;
 public class GlobalFrame extends JFrame {
     @Autowired
     private GlobalPropertiesUtil globalPropertiesUtil;
+    @Autowired
+    private PicsWin picsWin;
+    @Autowired
+    private PicsPanel picsPanel;
 
     public GlobalFrame() {
         //  菜单内容相关
@@ -86,8 +91,10 @@ public class GlobalFrame extends JFrame {
         //  open images menu item
         JMenuItem picWinMenuItem = new JMenuItem("open img dialog");
         picWinMenuItem.addActionListener(click -> {
+//            picsPanel.initPanel();
+//            //  set content pane
+//            setContentPane(picsPanel);
             //  打开图片弹窗
-            PicsWin picsWin = new PicsWin(this);
             picsWin.setVisible(true);
         });
         toolMenu.add(picWinMenuItem);

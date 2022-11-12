@@ -2,23 +2,23 @@ package org.expensive.service.impl;
 
 import org.expensive.common.utils.HtmlUtil;
 import org.expensive.service.ImageFinderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.util.xml.DomUtils;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class ImageFinderServiceImpl implements ImageFinderService {
+    private static final Logger log = LoggerFactory.getLogger(ImageFinderServiceImpl.class);
 
-    private String outFilePathPrefix = "F:\\TimelineResource\\";
+    private String outFilePathPrefix = "F:\\PgDownload\\";
 
     /**
      * 从网站下载带有目标图片的网页，并写入本地；
@@ -81,10 +81,13 @@ public class ImageFinderServiceImpl implements ImageFinderService {
      */
     public void downloadRemoteImgFile(String url, String localePathPrefix, String fileName) throws IOException {
         if (StringUtils.isEmpty(localePathPrefix)) localePathPrefix = outFilePathPrefix;
-        URL destiny =  new URL(url);
+        url = url.substring(1, url.length() -1);
+        URL destiny = new URL(url);
+        destiny.openConnection();
         InputStream in = destiny.openStream();
         if (StringUtils.isEmpty(fileName)) fileName = url.substring(url.lastIndexOf("/"));
-        FileOutputStream fileOutputStream = new FileOutputStream(localePathPrefix + fileName);
+        String filename = localePathPrefix + fileName;
+        FileOutputStream fileOutputStream = new FileOutputStream(filename);
         Scanner sc = new Scanner(in);
         int c;
         while ((c = in.read()) != -1){
@@ -92,5 +95,29 @@ public class ImageFinderServiceImpl implements ImageFinderService {
         }
         fileOutputStream.close();
         in.close();
+    }
+
+    @Override
+    public List<String> filterSrcValueFromImgLabel(String[] imgLabel) {
+        Pattern srcPattern = Pattern.compile("\"[^\"]*\"");
+        List<String> srcValue = new ArrayList<>();
+        Matcher matcher;
+        try {
+            List<String> strings = HtmlUtil.getSrcOfImg(imgLabel);
+            for (String s : strings) {
+                matcher = srcPattern.matcher(s);
+                if (matcher.find()) {
+                    String value = matcher.group();
+                    if (value.startsWith("//")) {
+                        value = "https:" + value;
+                    }
+                    srcValue.add(value);
+                }
+            }
+            srcValue.forEach(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return srcValue;
     }
 }

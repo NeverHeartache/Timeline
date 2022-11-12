@@ -21,4 +21,6 @@
 <!--    <bean id="properties" class="java.util.Properties"></bean>-->
 
     <context:component-scan base-package="org.expensive" />
+
+
 </beans>

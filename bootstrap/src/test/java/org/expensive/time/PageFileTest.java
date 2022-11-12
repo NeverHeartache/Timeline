@@ -48,7 +48,7 @@ public class PageFileTest {
 
     @Test
     public void getFilterImages() throws FileNotFoundException {
-        String path = "F:\\TimelineResource\\96A2B8A65E0E4B488051547AABD3EF05.html";
+        String path = "F:\\TimelineResource\\6FA5F610CD4545D596B3B2AB5167E489.html";
         String[] arr = service.filterImagesFromFile(path);
         Pattern srcPattern = Pattern.compile("\"[^\"]*\"");
         Matcher matcher;
@@ -68,10 +68,11 @@ public class PageFileTest {
 
     @Test
     public void downloadRemoteImage() throws IOException {
-        String url = "https://tenfei04.cfp.cn/creative/vcg/400/version23/VCG217e72c7346.jpg";
+        String pathPreffix = "F:\\PgDownload\\";
+        String url = "https://erogazo.info/wp-content/uploads/2022/08/210918f_0009-580x870-1.jpg";
         URL destiny =  new URL(url);
         InputStream in = destiny.openStream();
-        FileOutputStream fileOutputStream = new FileOutputStream("download.jpg");
+        FileOutputStream fileOutputStream = new FileOutputStream(pathPreffix + "download.jpg");
         Scanner sc = new Scanner(in);
         int c;
         while ((c = in.read()) != -1){

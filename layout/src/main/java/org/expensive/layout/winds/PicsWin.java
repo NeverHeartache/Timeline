@@ -1,9 +1,18 @@
 package org.expensive.layout.winds;
 
+import lombok.extern.slf4j.Slf4j;
+import org.expensive.layout.jframe.GlobalFrame;
 import org.expensive.service.ImageFinderService;
+import org.expensive.service.impl.ImageFinderServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -19,42 +28,49 @@ import java.util.List;
  */
 @Component
 public class PicsWin extends JDialog {
-
+    private static final Logger log = LoggerFactory.getLogger(PicsWin.class);
+    private int width;
+    private int height;
     @Autowired
     private ImageFinderService imageFinderService;
 
-    private PicsPanel picsPanel;
-
-    public PicsPanel getPicsPanel() {
-        return picsPanel;
+    public PicsWin() {
+        //  set default close event
+        setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+        width = 860;
+        height = 460;
+        getRootPane().setSize(width, height);
+        initPanel();
+        pack();
     }
 
-    public void setPicsPanel(PicsPanel picsPanel) {
-        this.picsPanel = picsPanel;
-    }
+    public void initPanel() {
+        //
+        JTextField pageAddressInput = new JTextField("", 20);
+        getRootPane().add(pageAddressInput);
 
-    public PicsWin(Frame owner) {
-        super(owner);
-        JTextField pageAddressInput = new JTextField("图片页面", 860);
-        add(pageAddressInput);
         JButton confirmBtn = new JButton("Search");
         confirmBtn.addActionListener(click -> {
             try {
                 String localPath = imageFinderService.getImagesPageFromWebsite(pageAddressInput.getText());
                 String[] imgs = imageFinderService.filterImagesFromFile(localPath);
-                for (String url:imgs
-                     ) {
+                List<String> values = imageFinderService.filterSrcValueFromImgLabel(imgs);
+                for (String url:values
+                ) {
+                    log.info(url);
                     imageFinderService.downloadRemoteImgFile(url, null, "");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        add(confirmBtn);
-        this.picsPanel = new PicsPanel();
-        picsPanel.setLayout(new FlowLayout());
-        add(picsPanel);
-        pack();
+        getRootPane().add(confirmBtn);
+        //  重置按钮
+        JButton resetBtn = new JButton("Reset");
+        resetBtn.addActionListener(e -> pageAddressInput.setText("https://erogazo.info/archives/9164/10"));
+        getRootPane().add(resetBtn);
+        //
+        getRootPane().setLayout(new FlowLayout());
     }
 
     /**
@@ -69,15 +85,7 @@ public class PicsWin extends JDialog {
             flowImage.setIcon(imageIcon);
             flowImage.setVerticalAlignment(JLabel.CENTER);
             flowImage.setHorizontalAlignment(JLabel.CENTER);
-            picsPanel.getRootPane().add(flowImage);
-        }
-    }
-
-    class PicsPanel extends JPanel {
-
-        @Override
-        public void setLayout(LayoutManager mgr) {
-            super.setLayout(mgr);
+            getRootPane().add(flowImage);
         }
     }
 }
