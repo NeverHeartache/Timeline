@@ -1,18 +1,11 @@
 package org.expensive.layout.winds;
 
-import lombok.extern.slf4j.Slf4j;
-import org.expensive.layout.jframe.GlobalFrame;
 import org.expensive.service.ImageFinderService;
-import org.expensive.service.impl.ImageFinderServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
