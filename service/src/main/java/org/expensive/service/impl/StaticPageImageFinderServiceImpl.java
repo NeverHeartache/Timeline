@@ -18,8 +18,9 @@ import java.util.regex.Pattern;
 public class StaticPageImageFinderServiceImpl implements ImageFinderService {
     private static final Logger log = LoggerFactory.getLogger(StaticPageImageFinderServiceImpl.class);
 
-    private String outFilePathPrefix = "F:\\PgDownload\\";
+    private final String outFilePathPrefix = "F:\\PgDownload\\";
 
+    private String outFilePath = "";
     /**
      * 从网站下载带有目标图片的网页，并写入本地；
      * @param pagePath 目标图片所在的页面路径（）
@@ -28,9 +29,12 @@ public class StaticPageImageFinderServiceImpl implements ImageFinderService {
      */
     @Override
     public String getImagesPageFromWebsite(String pagePath) throws IOException {
+        outFilePath = outFilePathPrefix + UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.ROOT) + "\\";
+        File path = new File(outFilePath);
+        if (!path.exists()) path.mkdir();
         InputStream inputStream = null;
         FileOutputStream fileOutputStream = null;
-        String filePath = outFilePathPrefix + UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.ROOT) + ".html";
+        String filePath = outFilePath + UUID.randomUUID().toString().replace("-", "").toUpperCase(Locale.ROOT) + ".html";
         System.out.println(filePath);
         try {
             URL url = new URL(pagePath);
@@ -80,7 +84,7 @@ public class StaticPageImageFinderServiceImpl implements ImageFinderService {
      * @throws IOException 异常
      */
     public void downloadRemoteImgFile(String url, String localePathPrefix, String fileName) throws IOException {
-        if (StringUtils.isEmpty(localePathPrefix)) localePathPrefix = outFilePathPrefix;
+        if (StringUtils.isEmpty(localePathPrefix)) localePathPrefix = outFilePath;
         url = url.substring(1, url.length() -1);
         URL destiny = new URL(url);
         destiny.openConnection();
@@ -114,7 +118,6 @@ public class StaticPageImageFinderServiceImpl implements ImageFinderService {
                     srcValue.add(value);
                 }
             }
-            srcValue.forEach(System.out::println);
         } catch (Exception e) {
             e.printStackTrace();
         }

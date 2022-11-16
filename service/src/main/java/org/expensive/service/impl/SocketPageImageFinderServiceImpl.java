@@ -1,7 +1,7 @@
 package org.expensive.service.impl;
 
 import org.expensive.common.pojo.GlobalPropertiesEntity;
-import org.expensive.service.ImageFinderService;
+import org.expensive.service.DynamicPageImageFinderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service("socketPageImageFinder")
-public class SocketPageImageFinderServiceImpl implements ImageFinderService {
+public class SocketPageImageFinderServiceImpl implements DynamicPageImageFinderService {
     private static final Logger logger = LoggerFactory.getLogger(SocketPageImageFinderServiceImpl.class);
     @Autowired
     private GlobalPropertiesEntity properties;
