@@ -14,9 +14,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Service
-public class ImageFinderServiceImpl implements ImageFinderService {
-    private static final Logger log = LoggerFactory.getLogger(ImageFinderServiceImpl.class);
+@Service("staticPageImageFinder")
+public class StaticPageImageFinderServiceImpl implements ImageFinderService {
+    private static final Logger log = LoggerFactory.getLogger(StaticPageImageFinderServiceImpl.class);
 
     private String outFilePathPrefix = "F:\\PgDownload\\";
 

@@ -1,7 +1,7 @@
 package org.expensive.time;
 
 import org.expensive.common.utils.HtmlUtil;
-import org.expensive.service.impl.ImageFinderServiceImpl;
+import org.expensive.service.impl.StaticPageImageFinderServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class PageFileTest {
     private static final Logger logger = LoggerFactory.getLogger(PageFileTest.class);
 
     @Resource
-    private ImageFinderServiceImpl service;
+    private StaticPageImageFinderServiceImpl service;
 
     /**
      * 测试成功，只需要引入上述两个注解即可；
