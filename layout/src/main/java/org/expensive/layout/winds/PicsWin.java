@@ -1,9 +1,11 @@
 package org.expensive.layout.winds;
 
+import org.expensive.layout.jframe.GlobalFrame;
 import org.expensive.service.ImageFinderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -25,16 +27,22 @@ public class PicsWin extends JDialog {
     private int width;
     private int height;
     @Autowired
-    private ImageFinderService imageFinderService;
+    @Qualifier("staticPageImageFinder")
+    private ImageFinderService staticImageFinderService;
+    @Autowired
+    @Qualifier("dynamicPageImageFinder")
+    private ImageFinderService dynamicImageFinderService;
+    @Autowired
+    private static GlobalFrame globalFrame;
 
     public PicsWin() {
+        super(globalFrame);
         //  set default close event
         setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         width = 860;
         height = 460;
-        getRootPane().setSize(width, height);
         initPanel();
-        pack();
+        setSize(width, height);
     }
 
     public void initPanel() {
@@ -45,13 +53,13 @@ public class PicsWin extends JDialog {
         JButton confirmBtn = new JButton("Search");
         confirmBtn.addActionListener(click -> {
             try {
-                String localPath = imageFinderService.getImagesPageFromWebsite(pageAddressInput.getText());
-                String[] imgs = imageFinderService.filterImagesFromFile(localPath);
-                List<String> values = imageFinderService.filterSrcValueFromImgLabel(imgs);
+                String localPath = staticImageFinderService.getImagesPageFromWebsite(pageAddressInput.getText());
+                String[] imgs = staticImageFinderService.filterImagesFromFile(localPath);
+                List<String> values = staticImageFinderService.filterSrcValueFromImgLabel(imgs);
                 for (String url:values
                 ) {
                     log.info(url);
-                    imageFinderService.downloadRemoteImgFile(url, null, "");
+                    staticImageFinderService.downloadRemoteImgFile(url, null, "");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
