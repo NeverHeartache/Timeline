@@ -4,6 +4,7 @@ import org.expensive.common.utils.HtmlUtil;
 import org.expensive.service.ImageFinderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -14,7 +15,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Service("staticPageImageFinder")
+@Service
+@Qualifier("staticPageImageFinder")
 public class StaticPageImageFinderServiceImpl implements ImageFinderService {
     private static final Logger log = LoggerFactory.getLogger(StaticPageImageFinderServiceImpl.class);
 

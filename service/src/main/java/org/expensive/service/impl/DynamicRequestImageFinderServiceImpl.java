@@ -3,13 +3,16 @@ package org.expensive.service.impl;
 import org.expensive.service.ImageFinderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-@Component
+@Service
+@Qualifier("dynamicPageImageFinder")
 public class DynamicRequestImageFinderServiceImpl implements ImageFinderService {
     private static final Logger logger = LoggerFactory.getLogger(DynamicRequestImageFinderServiceImpl.class);
 
