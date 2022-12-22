@@ -3,6 +3,7 @@ package org.expensive.layout.winds;
 import lombok.extern.slf4j.Slf4j;
 import org.expensive.service.ImageFinderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ import java.util.List;
 public class PicsPanel extends JPanel {
 
     @Autowired
+    @Qualifier("staticPageImageFinder")
     private ImageFinderService imageFinderService;
     private int width;
     private int height;
